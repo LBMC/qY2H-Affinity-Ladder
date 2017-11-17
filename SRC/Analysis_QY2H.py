@@ -20,7 +20,7 @@ The _ is only there to indicate a non Python native object/functions.
 """
 
 # GIT commit considered as functional.
-GC = '835497e021452af750d53ed783972f8a95e38606'
+GC = '0f2182916ce9b347e7771370d03817ababdb3958'
 
 # Create colors
 CreateMyColors()
