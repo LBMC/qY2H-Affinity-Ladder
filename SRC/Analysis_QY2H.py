@@ -5,7 +5,7 @@
 from os.path import join
 
 # Own libraries.
-from Object_Echantillon.py import Echantillon
+from Object_Echantillon import Echantillon
 
 from Functions import Conditions, FCStoCSV
 from Functions import CreatePDF, CreateTXT, Draw_Cumulative
