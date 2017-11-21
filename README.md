@@ -17,7 +17,7 @@ Copyright CNRS 2013
 
 
 >This software is a computer program whose purpose is to automatically analyze QY2H data (`.fcs` files)
-and generate in cellulo affinity ladder.
+and generate *in cellulo* affinity ladder.
 >
 >This software is governed by the CeCILL  license under French law and abiding
 by the rules of distribution of free software. You can use, modify and/ or
