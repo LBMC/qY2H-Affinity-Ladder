@@ -43,3 +43,22 @@ of the CeCILL license and that you accept its terms.
 
 Requirements
 --
+This program is optimized for `Python 2.7` with the following libraries:
+
+* `datetime`: To generate unique Analysis ID and file name.
+
+* `FlowCytometryTools`: To open `.fcs` files and manipulate flowcytometry data. http://eyurtsev.github.io/FlowCytometryTools/
+
+* `glob`: To identify the `.fcs` files in the Input folder.
+
+* `matplotlib`: To generate the curves.
+
+* `numpy`: To generate and manipulate arrays.
+
+* `os`: To handle paths of the raw data and generated files.
+
+* `Pillow / PIL`: To display images within the GUI of the program.
+
+* `sys`: To permit manual abortion of the program.
+
+* `Tkinter`: To generate the GUI of the program.
