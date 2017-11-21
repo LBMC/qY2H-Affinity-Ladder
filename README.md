@@ -6,8 +6,8 @@ Authors
 
 ![Simbio Logo](src/Logo.jpg) ||
 -----------------------------|------------|
-CLUET David | david.cluet@ens-lyon.fr|
-SPICHTY Martin | martin.spichty@ens-lyon.fr|
+**CLUET David** | david.cluet@ens-lyon.fr|
+**SPICHTY Martin** | martin.spichty@ens-lyon.fr|
 
 
 License
