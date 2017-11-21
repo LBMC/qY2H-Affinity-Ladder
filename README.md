@@ -4,9 +4,11 @@ Analysis of QY2H Data
 Authors
 --
 
-CLUET David:      david.cluet@ens-lyon.fr
+![Simbio Logo](src/Logo.jpg) | SIMBIO TEAM
+-----------------------------|------------
+CLUET David | david.cluet@ens-lyon.fr
+SPICHTY Martin | martin.spichty@ens-lyon.fr
 
-SPICHTY Martin:  martin.spichty@ens-lyon.fr
 
 License
 --
