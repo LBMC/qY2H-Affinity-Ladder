@@ -4,7 +4,7 @@ Analysis of QY2H Data
 Authors
 --
 
-![Simbio Logo](src/Logo.jpg) ||
+![Simbio Logo](src/Logo.jpg) |![LBMC Logo](doc/Logo_LBMC.jpg) ![CNRS Logo](doc/Logo_cnrs.jpg) ![ENS Logo](doc/Logo_ens.jpg) |
 -----------------------------|------------|
 **CLUET David** | david.cluet@ens-lyon.fr|
 **SPICHTY Martin** | martin.spichty@ens-lyon.fr|
