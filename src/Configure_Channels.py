@@ -3,7 +3,6 @@
 import Tkinter as tk
 import os
 from FlowCytometryTools import FCMeasurement
-from PIL import Image, ImageTk
 from tkFileDialog import askopenfilename  # Name consistancy!!???
 from Variables import FilesTypes
 
@@ -21,7 +20,7 @@ class Channels(tk.Tk):
     def __init__(self, path):
         """Create the window."""
         self.PathLog = os.path.dirname(os.path.abspath(__file__))
-        print self.PathLog
+
         # Open the fcs file and retrieve the channels
         self._sample = FCMeasurement(ID='Test Sample',
                                      datafile=path
@@ -33,7 +32,7 @@ class Channels(tk.Tk):
 
         # width x height + x_offset + y_offset:
         Ww = (25+100) * 5 + 25
-        Hw = 405
+        Hw = 500
         self.geometry(''+str(Ww)+'x'+str(Hw)+'+10+10')
 
         margin = 10
@@ -127,14 +126,41 @@ class Channels(tk.Tk):
             self.GFP.insert(tk.END, c)
             self.RFP.insert(tk.END, c)
 
+        self.fsc = ''
+        self.ssc = ''
+        self.bfp = ''
+        self.gfp = ''
+        self.rfp = 'self.FSC.get(self.RFP.curselection())'
+
         # Button
         self.OK = tk.Button(self,
                             text="VALIDATE",
                             font=('Courier', 16),
-                            command=self._validate(),
+                            command=lambda: self._validate(),
                             bg='#009999'
                             )
-        self.OK.place(x=525, y=Y2+300+margin, width=100, height=H)
+        self.OK.place(x=525, y=450, width=100, height=H)
 
     def _validate(self):
         """Save the selected channels as default."""
+        # FSC
+        self.fsc = self.FSC.get(self.FSC.curselection())
+        self.ssc = self.SSC.get(self.SSC.curselection())
+        self.bfp = self.BFP.get(self.BFP.curselection())
+        self.gfp = self.GFP.get(self.GFP.curselection())
+        self.rfp = self.FSC.get(self.RFP.curselection())
+
+        # New parameters
+        Param = (self.fsc + '\n' +
+                 self.ssc + '\n' +
+                 self.bfp + '\n' +
+                 self.gfp + '\n' +
+                 self.rfp)
+
+        # Update channels.config file
+
+        file = open(self.PathLog + os.sep + 'channels.config',
+                    'w')
+        file.write(Param)
+        file.close()
+        self.destroy()
