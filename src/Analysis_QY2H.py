@@ -9,6 +9,7 @@ from Object_Echantillon import Echantillon
 
 from Functions import Conditions, FCStoCSV
 from Functions import CreatePDF, CreateTXT, Draw_Cumulative
+from Opening_window import Start
 from Configuration import configuration
 from Ending_Window import Result
 from Colors import CreateMyColors
@@ -24,6 +25,12 @@ GC = '0f2182916ce9b347e7771370d03817ababdb3958'
 
 # Create colors
 CreateMyColors()
+
+# Configuration
+WinStart = Start()
+# Waiting for command
+WinStart.mainloop()
+
 
 # Configuration
 Config = configuration()

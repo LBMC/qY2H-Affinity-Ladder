@@ -20,3 +20,8 @@ Square = 3  # inches.
 
 W = 0.375  # Width (0-1) of the figure
 H = 0.75  # Height (0-1) of the figure
+
+# Accepted FilesTypes
+FilesTypes = FilesTypes = (('Cytometry files', '*.fcs'),
+                           ('All files', '*.*')
+                           )

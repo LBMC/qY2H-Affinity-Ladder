@@ -48,7 +48,8 @@ class Result(tk.Tk):
         # Exit button
         self.NO = tk.Button(text="ABORT",
                             font=('Courier', 16),
-                            command=self._close
+                            command=self._close,
+                            bg='#ff6600'
                             )
         self.NO.place(x=25,
                       y=H-75,

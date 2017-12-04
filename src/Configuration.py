@@ -18,8 +18,15 @@ class configuration(tk.Tk):
     def __init__(self):
         """Create the window."""
         # Test get script path
-        PathL = os.path.dirname(os.path.abspath(__file__))
-        PathL = PathL + os.sep + 'Logo.jpg'
+        PathLog = os.path.dirname(os.path.abspath(__file__))
+        PathL = PathLog + os.sep + 'Logo.jpg'
+
+        PathChannels = PathLog + os.sep + 'channels.config'
+
+        myChannels = open(PathChannels, 'r').readlines()
+        for i in range(0, len(myChannels), 1):
+            myChannels[i] = myChannels[i].rstrip()
+        print myChannels
 
         tk.Tk.__init__(self)
         self.wm_title('CONFIGURATION')
@@ -127,68 +134,74 @@ class configuration(tk.Tk):
         # GFP
         Y += H + margin + 25
         self.labelGFP = tk.Label(self,
-                                 text='GFP values:',
+                                 text=myChannels[3]+' values:',
                                  anchor='w',
                                  font=('Courier', 16)
                                  )
-        self.labelGFP.place(x=20, y=Y, width=200, height=H)
+        self.labelGFP.place(x=20, y=Y, width=250, height=H)
 
         self.GFPlo = tk.Entry(self,
-                              font=('Courier', 16)
+                              font=('Courier', 16),
+                              bg='#99ff99'
                               )
         self.GFPlo.insert(0, str(limitsGFP[0]))
-        self.GFPlo.place(x=200, y=Y, width=100, height=H)
+        self.GFPlo.place(x=250, y=Y, width=100, height=H)
 
         self.labelGFP2 = tk.Label(self,
                                   text=' to ',
                                   anchor='w',
                                   font=('Courier', 16)
                                   )
-        self.labelGFP2.place(x=300, y=Y, width=50, height=H)
+        self.labelGFP2.place(x=350, y=Y, width=50, height=H)
 
         self.GFPup = tk.Entry(self,
-                              font=('Courier', 16)
+                              font=('Courier', 16),
+                              bg='#99ff99'
                               )
         self.GFPup.insert(0, str(limitsGFP[1]))
-        self.GFPup.place(x=350, y=Y, width=100, height=H)
+        self.GFPup.place(x=400, y=Y, width=100, height=H)
 
         # RFP
         Y += H + margin
         self.labelRFP = tk.Label(self,
-                                 text='RFP values:',
+                                 text=myChannels[4]+' values:',
                                  anchor='w',
                                  font=('Courier', 16)
                                  )
-        self.labelRFP.place(x=20, y=Y, width=200, height=H)
+        self.labelRFP.place(x=20, y=Y, width=250, height=H)
 
         self.RFPlo = tk.Entry(self,
-                              font=('Courier', 16)
+                              font=('Courier', 16),
+                              bg='#ff9999'
                               )
         self.RFPlo.insert(0, str(limitsRFP[0]))
-        self.RFPlo.place(x=200, y=Y, width=100, height=H)
+        self.RFPlo.place(x=250, y=Y, width=100, height=H)
 
         self.labelRFP2 = tk.Label(self,
                                   text=' to ',
                                   anchor='w',
                                   font=('Courier', 16)
                                   )
-        self.labelRFP2.place(x=300, y=Y, width=50, height=H)
+        self.labelRFP2.place(x=350, y=Y, width=50, height=H)
 
         self.RFPup = tk.Entry(self,
-                              font=('Courier', 16)
+                              font=('Courier', 16),
+                              bg='#ff9999'
                               )
         self.RFPup.insert(0, str(limitsRFP[1]))
-        self.RFPup.place(x=350, y=Y, width=100, height=H)
+        self.RFPup.place(x=400, y=Y, width=100, height=H)
 
         # Checkbutton
         Y += H + margin
         self.RN = tk.IntVar(value=RemoveNoise)
         self.Remove = tk.Checkbutton(self,
-                                     text='Remove negative Control',
+                                     text=('Remove negative Control in ' +
+                                           myChannels[2]),
                                      variable=self.RN,
-                                     font=('Courier', 16)
+                                     font=('Courier', 16),
+                                     bg='#99ccff'
                                      )
-        self.Remove.place(x=20, y=Y, width=280, height=H)
+        self.Remove.place(x=(Ww-500)/2, y=Y, width=500, height=H)
 
         Y += H + margin + 25
         # Files
@@ -267,7 +280,7 @@ class configuration(tk.Tk):
         self.NO = tk.Button(text="ABORT",
                             font=('Courier', 16),
                             command=self._close,
-                            bg='#009999'
+                            bg='#ff6600'
                             )
         self.NO.place(x=margin, y=Hw-(H+margin), width=100, height=H)
 
