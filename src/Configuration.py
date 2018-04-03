@@ -90,7 +90,7 @@ class configuration(tk.Tk):
         self.Input.place(x=20 + image.size[0] + 100,
                          y=Y,
                          width=450,
-                         height=H
+                         height=H+10
                          )
         self.BrowseI = tk.Button(text='BROWSE',
                                  font=('Courier', 16),
@@ -122,7 +122,7 @@ class configuration(tk.Tk):
         self.Output.place(x=20 + image.size[0] + 100,
                           y=Y,
                           width=450,
-                          height=H
+                          height=H+10
                           )
         self.BrowseO = tk.Button(text='BROWSE',
                                  font=('Courier', 16),
@@ -210,7 +210,7 @@ class configuration(tk.Tk):
                                   anchor='w',
                                   font=('Courier', 16)
                                   )
-        self.labelFile.place(x=20, y=Y, width=300, height=H)
+        self.labelFile.place(x=20, y=Y, width=400, height=H)
 
         Y += H + margin
 
@@ -229,7 +229,7 @@ class configuration(tk.Tk):
         for f in self.fileList:
             self.F.insert(tk.END, f)
 
-        self.F.place(x=20, y=Y, width=300, height=300)
+        self.F.place(x=20, y=Y, width=400, height=300)
 
         # NbC
         Y += 300 + margin + 25

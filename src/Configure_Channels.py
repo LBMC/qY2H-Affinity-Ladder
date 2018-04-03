@@ -130,7 +130,7 @@ class Channels(tk.Tk):
         self.ssc = ''
         self.bfp = ''
         self.gfp = ''
-        self.rfp = 'self.FSC.get(self.RFP.curselection())'
+        self.rfp = ''
 
         # Button
         self.OK = tk.Button(self,

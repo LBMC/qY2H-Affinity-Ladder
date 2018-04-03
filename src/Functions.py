@@ -2,6 +2,7 @@
 
 # Python Llibraries
 import datetime
+import os
 from os.path import join
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -89,6 +90,15 @@ def Draw_Cumulative(Couples_M,
                     pdf
                     ):
     """Draw the cumulative mean BFP curves."""
+    # Retrieve all channels names
+    PathLog = os.path.dirname(os.path.abspath(__file__))
+    PathChannels = PathLog + os.sep + 'channels.config'
+    myChannels = open(PathChannels, 'r').readlines()
+    for i in range(0, len(myChannels), 1):
+        myChannels[i] = myChannels[i].rstrip()
+
+    BFPchannel = myChannels[2]
+
     # Initiate graph.
     fig = plt.figure(figsize=Dimension)
     fig.add_axes([Left,
@@ -112,16 +122,18 @@ def Draw_Cumulative(Couples_M,
 
     for C in Couples_M:
         mymarker = dictMarker[(iteration, index % 2)]
-
+        ind = Sample[(C)]._BFPlin.shape[0] - 1
+        T = C + '\n<' + BFPchannel + '> = '
+        T += str(round(Sample[(C)]._BFPlin[ind], 2)) + '\n'
         if C != Ref:
             plt.semilogy(Sample[(C)]._BFPbin,
                          Sample[(C)]._BFPlin,
                          linewidth=1,
-                         label=C,
+                         label=T,
                          color='mc'+str(index),
                          linestyle=ls,
                          marker=mymarker,
-                         markersize=2
+                         markersize=5
                          )
             index += 1
             if index > 15:
@@ -132,15 +144,15 @@ def Draw_Cumulative(Couples_M,
             plt.semilogy(Sample[(C)]._BFPbin,
                          Sample[(C)]._BFPlin,
                          linewidth=3,
-                         label=C,
+                         label=T,
                          color='mc0',
                          linestyle=':'
                          )
-
-    plt.xlim(xmin=0, xmax=25)
+    plt.ylim(ymin=1)
+    plt.xlim(xmin=0, xmax=25000)
 
     # Axes label.
-    plt.xlabel('Tag BFP-H' + ' (AU /1000)',
+    plt.xlabel(BFPchannel,
                fontweight='bold',
                )
 
@@ -156,7 +168,7 @@ def Draw_Cumulative(Couples_M,
                )
 
     # Title of the graph.
-    plt.suptitle(Sample[(C)]._GFPslice)
+    plt.suptitle(Sample[(C)]._GFPslice, fontsize=10)
 
     # Transfert in the pdf.
     plt.savefig(pdf,
