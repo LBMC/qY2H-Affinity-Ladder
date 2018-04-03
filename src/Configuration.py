@@ -26,7 +26,6 @@ class configuration(tk.Tk):
         myChannels = open(PathChannels, 'r').readlines()
         for i in range(0, len(myChannels), 1):
             myChannels[i] = myChannels[i].rstrip()
-        print myChannels
 
         tk.Tk.__init__(self)
         self.wm_title('CONFIGURATION')

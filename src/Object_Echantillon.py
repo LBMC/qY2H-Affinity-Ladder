@@ -45,7 +45,7 @@ class Echantillon:
         self._GFPslice += self.GFPchannel
         self._GFPslice += ' slice (' + str(self._GFPlimits[0])
         self._GFPslice += ', ' + str(self._GFPlimits[1]) + ')'
-        self._nBinlin = 100
+        self._nBinlin = 500
 
         self._Couple = C
         self._NbC = config.NbC
@@ -110,8 +110,6 @@ class Echantillon:
         # update progressbar 2
         self._step += 1
         config._UpdateCK2(self._step)
-
-        # print self._BFP
 
         # Initiate attribute to Fitting.
         self._BFPf1 = np.array([])  # fitted BFP.

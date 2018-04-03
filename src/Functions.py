@@ -38,6 +38,17 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
     NomTxt += str(now.hour) + '-' + str(now.minute) + '_'
     NomTxt += 'Mean' + '.csv'
 
+    # Retrieve all channels names
+    PathLog = os.path.dirname(os.path.abspath(__file__))
+    PathChannels = PathLog + os.sep + 'channels.config'
+    myChannels = open(PathChannels, 'r').readlines()
+    for i in range(0, len(myChannels), 1):
+        myChannels[i] = myChannels[i].rstrip()
+
+    BFPchannel = myChannels[2]
+    GFPchannel = myChannels[3]
+    RFPchannel = myChannels[4]
+
     # Path of the file.
     MyFile = join(Config.OUTpath,
                   NomTxt)
@@ -46,17 +57,18 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
     f = open(str(MyFile), "w+")
 
     # Calculate the mean RFP value of the Gate currently used.
-    R = (Samples[(CR)]._RFPlimits[0]+Samples[(CR)]._RFPlimits[1])/2
+    R = '(' + str(Samples[(CR)]._RFPlimits[0]) + ' - '
+    R += str(Samples[(CR)]._RFPlimits[1]) + ')'
 
     # Update the csv file.
-    f.write('RFP = ' + str(R) + '\n')
+    f.write(RFPchannel + ' = ' + R + '\n')
 
     # Create the GFP scale using the reference Manip/couple file.
-    f.write('GFP')
+    f.write(GFPchannel)
     for g in Samples[(CR)]._GFP:
         f.write(","+str(g))
     f.write('\n')
-    f.write('\nBFP\n')
+    f.write('\n' + BFPchannel + '\n')
     return f
 
 
