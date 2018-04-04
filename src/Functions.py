@@ -138,6 +138,16 @@ def Draw_Cumulative(Couples_M,
         T = C + '\n<' + BFPchannel + '> = '
         T += str(round(Sample[(C)]._BFPlin[ind], 2)) + '\n'
         if C != Ref:
+            plt.plot(Sample[(C)]._BFPbin,
+                     Sample[(C)]._BFPlin,
+                     linewidth=1,
+                     label=T,
+                     color='mc'+str(index),
+                     linestyle=ls,
+                     marker=mymarker,
+                     markersize=5
+                     )
+            """
             plt.semilogy(Sample[(C)]._BFPbin,
                          Sample[(C)]._BFPlin,
                          linewidth=1,
@@ -146,20 +156,28 @@ def Draw_Cumulative(Couples_M,
                          linestyle=ls,
                          marker=mymarker,
                          markersize=5
-                         )
+                         )"""
             index += 1
             if index > 15:
                 index = 0
                 iteration += 1
 
         elif C == Ref and Config.noise == 0:
+            plt.plot(Sample[(C)]._BFPbin,
+                     Sample[(C)]._BFPlin,
+                     linewidth=3,
+                     label=T,
+                     color='mc0',
+                     linestyle=':'
+                     )
+            """
             plt.semilogy(Sample[(C)]._BFPbin,
                          Sample[(C)]._BFPlin,
                          linewidth=3,
                          label=T,
                          color='mc0',
                          linestyle=':'
-                         )
+                         )"""
     plt.ylim(ymin=1)
     plt.xlim(xmin=0, xmax=25000)
 

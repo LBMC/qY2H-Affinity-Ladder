@@ -64,3 +64,36 @@ This program is optimized for `Python 2.7` with the following libraries:
 * `sys`: To permit manual abortion of the program.
 
 * `Tkinter`: To generate the GUI of the program.
+
+
+User Guide
+--
+
+*Main Menu*
+-
+
+![Main Menu](/Screenshots/Main_Menu.jpg)
+
+
+*Configure the names of the channels*
+-
+
+![Select File](/Screenshots/Select_File.jpg)
+
+bla
+
+![Select Channels](/Screenshots/Select_Channels.jpg)
+
+
+*Perform an analysis*
+-
+
+![Configuration](/Screenshots/Analysis_Configuration.jpg)
+
+bla
+
+![Progress](/Screenshots/Analysis_Progress.jpg)
+
+bla
+
+![Results](/Screenshots/Result.jpg)

@@ -83,6 +83,7 @@ class Echantillon:
                                                 self.GFPchannel,
                                                 region='in'
                                                 )
+
         fgate = FlowCytometryTools.IntervalGate((-5000,
                                                  250000),
                                                 self.FSCchannel,
@@ -123,6 +124,21 @@ class Echantillon:
 
         # END OF CONSTRUCTOR
 
+    def _transfoMartin(mysample):
+        A = 250001
+
+        # Copy the original sample
+        new_sample = mysample.copy()
+        new_data = new_sample.data
+
+        # Our transformation goes here
+        new_data['Tag BFP-H'] = np.log(A / (A - new_data['Tag BFP-H']))
+        new_data = new_data.dropna()  # Removes all NaN entries
+        mysample.data = new_data
+
+        new_sample.data = new_data
+        return new_sample
+
     def _CumulHisto(self,
                     Min,
                     Max):
@@ -147,13 +163,23 @@ class Echantillon:
         # Gating.
         gsample = self._sample.gate(Gate)
 
+        # Martin transformation
+        print('Transfo Martin')
+        print('Before')
+        print(str(gsample.data['Tag BFP-H'].mean()))
+
+        gsample = gsample.apply(self._transfoMartin())
+
+        print('After')
+        print(str(gsample.data['Tag BFP-H'].mean()))
+
         # Creating histogram
         val = gsample.data[self.BFPchannel].values
-
+        myMax = max(val)
         (self._BFPlin,
          self._BFPbin) = np.histogram(val,
                                       bins=self._nBinlin,
-                                      range=(0.01, 25000)
+                                      range=(0, myMax)
                                       )
 
         self.mBFP = gsample[self.BFPchannel].mean()
