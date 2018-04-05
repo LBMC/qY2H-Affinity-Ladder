@@ -48,6 +48,9 @@ class configuration(tk.Tk):
         self.equation = ''
         self.control = ''
         self.op = ''
+        self.semilog = 1
+        self.maxBFP = 25000
+        self.nbins = 25
 
         margin = 10
         (Y, H) = (margin, 25)
@@ -190,6 +193,36 @@ class configuration(tk.Tk):
         self.RFPup.insert(0, str(limitsRFP[1]))
         self.RFPup.place(x=400, y=Y, width=100, height=H)
 
+        # BFP
+        Y += H + margin
+        self.labelBFP = tk.Label(self,
+                                 text=myChannels[2]+' max:',
+                                 anchor='w',
+                                 font=('Courier', 16)
+                                 )
+        self.labelBFP.place(x=20, y=Y, width=250, height=H)
+
+        self.BFPin = tk.Entry(self,
+                              font=('Courier', 16),
+                              bg='#99ccff'
+                              )
+        self.BFPin.insert(0, str(self.maxBFP))
+        self.BFPin.place(x=250, y=Y, width=100, height=H)
+
+        self.labelBFP2 = tk.Label(self,
+                                  text=' bins: ',
+                                  anchor='w',
+                                  font=('Courier', 16)
+                                  )
+        self.labelBFP2.place(x=350, y=Y, width=100, height=H)
+
+        self.BFPbi = tk.Entry(self,
+                              font=('Courier', 16),
+                              bg='#99ccff'
+                              )
+        self.BFPbi.insert(0, str(self.nbins))
+        self.BFPbi.place(x=500, y=Y, width=100, height=H)
+
         # Checkbutton
         Y += H + margin
         self.RN = tk.IntVar(value=RemoveNoise)
@@ -200,9 +233,10 @@ class configuration(tk.Tk):
                                      font=('Courier', 16),
                                      bg='#99ccff'
                                      )
-        self.Remove.place(x=(Ww-500)/2, y=Y, width=500, height=H)
+        self.Remove.place(x=20, y=Y, width=500, height=H)
 
-        Y += H + margin + 25
+        Y += H + margin
+
         # Files
         self.labelFile = tk.Label(self,
                                   text='Specify negative Control:',
@@ -212,7 +246,6 @@ class configuration(tk.Tk):
         self.labelFile.place(x=20, y=Y, width=400, height=H)
 
         Y += H + margin
-
         self.F = tk.Listbox(self,
                             font=('Courier', 12),
                             exportselection=0
@@ -231,7 +264,7 @@ class configuration(tk.Tk):
         self.F.place(x=20, y=Y, width=400, height=300)
 
         # NbC
-        Y += 300 + margin + 25
+        Y += 300 + margin
         self.labelNbc = tk.Label(self,
                                  text='Number of cells:',
                                  anchor='w',
@@ -245,8 +278,18 @@ class configuration(tk.Tk):
         self.EntNbc.insert(0, str(self.NbC))
         self.EntNbc.place(x=250, y=Y, width=200, height=H)
 
-        # Progressbar
+        # Representation
         Y += H + margin
+        self.RP = tk.IntVar(value=self.semilog)
+        self.Repres = tk.Checkbutton(self,
+                                     text=('Y axis in log scale'),
+                                     variable=self.RP,
+                                     font=('Courier', 16)
+                                     )
+        self.Repres.place(x=20, y=Y, width=280, height=H)
+
+        # Progressbar
+        Y += H
         self.labelCK = tk.Label(self,
                                 text='',
                                 anchor='w',
@@ -350,6 +393,10 @@ class configuration(tk.Tk):
         self.rlow = int(self.RFPlo.get())
         self.rup = int(self.RFPup.get())
 
+        # BFP
+        self.maxBFP = int(self.BFPin.get())
+        self.nbins = int(self.BFPbi.get())
+
         # Remove noise
         self.noise = int(self.RN.get())
 
@@ -361,6 +408,9 @@ class configuration(tk.Tk):
 
         # Number of cells
         self.NbC = int(self.EntNbc.get())
+
+        # Axis
+        self.semilog = int(self.RP.get())
 
         # Remove the Button
         self.OK.place_forget()

@@ -38,6 +38,7 @@ class Echantillon:
         # RFP and GFP limits for Titration.
         self._RFPlimits = [config.rlow, config.rup]
         self._GFPlimits = [config.glow, config.gup]
+        self._maxBFP = config.maxBFP
 
         self._GFPslice = self.RFPchannel
         self._GFPslice += ' slice (' + str(self._RFPlimits[0])
@@ -46,6 +47,7 @@ class Echantillon:
         self._GFPslice += ' slice (' + str(self._GFPlimits[0])
         self._GFPslice += ', ' + str(self._GFPlimits[1]) + ')'
         self._nBinlin = 500
+        self._binjump = int(self._nBinlin/config.nbins)
 
         self._Couple = C
         self._NbC = config.NbC
@@ -83,7 +85,6 @@ class Echantillon:
                                                 self.GFPchannel,
                                                 region='in'
                                                 )
-
         fgate = FlowCytometryTools.IntervalGate((-5000,
                                                  250000),
                                                 self.FSCchannel,
@@ -102,42 +103,32 @@ class Echantillon:
         self._BFPbin = np.array([])
         self._GFP = np.array([])
 
+        self._BFPlins = np.array([])
+        self._BFPbins = np.array([])
+
         # Perform Titration.
         self._Titration(config)
 
         # Perform cumulative histogram for BFP
         self._CumulHisto(self._GFPlimits[0], self._GFPlimits[1])
 
+        # take only one point over 10
+        self._Simplify()
+
         # update progressbar 2
         self._step += 1
         config._UpdateCK2(self._step)
-
-        # Initiate attribute to Fitting.
-        self._BFPf1 = np.array([])  # fitted BFP.
-        self._popt1 = np.array([])  # optimal parameters for the current fit.
-        self._pcov1 = np.array([])  # covariance optimal parameters.
-        self._r21 = 0  # R2 correlation coefficient.
-        self._Equation = ''  # Equation of the current fit model.
-        self._param = []  # Name of the parameters of the fit model.
 
         del self._sample  # to remove when more RAM available!!!!
 
         # END OF CONSTRUCTOR
 
-    def _transfoMartin(mysample):
-        A = 250001
-
-        # Copy the original sample
-        new_sample = mysample.copy()
-        new_data = new_sample.data
-
-        # Our transformation goes here
-        new_data['Tag BFP-H'] = np.log(A / (A - new_data['Tag BFP-H']))
-        new_data = new_data.dropna()  # Removes all NaN entries
-        mysample.data = new_data
-
-        new_sample.data = new_data
-        return new_sample
+    def _Simplify(self):
+        for i in range(0, self._nBinlin, self._binjump):
+            self._BFPlins = np.append(self._BFPlins,
+                                      self._BFPlin[i])
+            self._BFPbins = np.append(self._BFPbins,
+                                      self._BFPbin[i])
 
     def _CumulHisto(self,
                     Min,
@@ -163,23 +154,13 @@ class Echantillon:
         # Gating.
         gsample = self._sample.gate(Gate)
 
-        # Martin transformation
-        print('Transfo Martin')
-        print('Before')
-        print(str(gsample.data['Tag BFP-H'].mean()))
-
-        gsample = gsample.apply(self._transfoMartin())
-
-        print('After')
-        print(str(gsample.data['Tag BFP-H'].mean()))
-
         # Creating histogram
         val = gsample.data[self.BFPchannel].values
-        myMax = max(val)
+
         (self._BFPlin,
          self._BFPbin) = np.histogram(val,
                                       bins=self._nBinlin,
-                                      range=(0, myMax)
+                                      range=(0.01, self._maxBFP)
                                       )
 
         self.mBFP = gsample[self.BFPchannel].mean()
