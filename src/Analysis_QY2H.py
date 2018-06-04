@@ -15,121 +15,126 @@ from Ending_Window import Result
 from Colors import CreateMyColors
 
 
-"""
-ALL ._Functions are those I developped.
-The _ is only there to indicate a non Python native object/functions.
-"""
+def main():
+    """Main program."""
+    """
+    ALL ._Functions are those I developped.
+    The _ is only there to indicate a non Python native object/functions.
+    """
+    # GIT commit considered as functional.
+    GC = '0f2182916ce9b347e7771370d03817ababdb3958'
 
-# GIT commit considered as functional.
-GC = '0f2182916ce9b347e7771370d03817ababdb3958'
+    # Create colors
+    CreateMyColors()
 
-# Create colors
-CreateMyColors()
+    # Configuration
+    WinStart = Start()
+    # Waiting for command
+    WinStart.mainloop()
 
-# Configuration
-WinStart = Start()
-# Waiting for command
-WinStart.mainloop()
+    # Configuration
+    Config = configuration()
+    # Waiting until Start is pressed
+    Config.mainloop()
 
+    # Start is pressed
+    Config.update_idletasks()
+    Config.update()
 
-# Configuration
-Config = configuration()
-# Waiting until Start is pressed
-Config.mainloop()
+    # Dictionnary of all Echantillons.
+    Samples = {}
 
-# Start is pressed
-Config.update_idletasks()
-Config.update()
+    NFiles = Config.Nfiles
 
+    # Ref file
+    RFile = Config.Ref
 
-# Dictionnary of all Echantillons.
-Samples = {}
+    # Create pdf file.
+    BilanPdf = CreatePDF(Config)
 
-NFiles = Config.Nfiles
+    # Procesing files.
+    f = 0
 
-# Ref file
-RFile = Config.Ref
+    Config._setProgress(f,
+                        NFiles,
+                        'PROCESSING FILES: '
+                        )
 
-# Create pdf file.
-BilanPdf = CreatePDF(Config)
+    for C in Config.fileList:
+        f += 1
+        # Creating the local object instance.
+        NameE = C
+        PathE = join(Config.INpath, NameE)
 
-# Procesing files.
-f = 0
+        Config._UpdateCK(f, NameE)
+        Samples[(C)] = Echantillon(C,
+                                   PathE,
+                                   NameE,
+                                   Config
+                                   )
 
-Config._setProgress(f,
-                    NFiles,
-                    'PROCESSING FILES: '
+        # Create report first page.
+        if f == 1:
+            # Use the first couple to generate the txt file.
+            Conditions(BilanPdf,
+                       C,
+                       Samples,
+                       GC
+                       )
+
+    # Initialize the txt report.
+    F = CreateTXT(Samples,
+                  C,
+                  Config
+                  )
+
+    # Creating graph.
+    m = 0
+
+    Config._setProgress(m,
+                        len(Config.fileList),
+                        'REMOVING NOISE'
+                        )
+
+    Zero = Samples[(RFile)]._BFP
+    Zerolin = Samples[(RFile)]._BFPlin
+    Zerolins = Samples[(RFile)]._BFPlins
+    for C in Config.fileList:
+        # Removing Noise for all kind of dimension BFP.
+        if Config.noise == 1:
+            lt = len(Samples[(C)]._BFP)
+            Samples[(C)]._BFP = Samples[(C)]._BFP - Zero[:lt]
+
+            lt = len(Samples[(C)]._BFPlins)
+            Samples[(C)]._BFPlins = Samples[(C)]._BFPlins - Zerolins[:lt]
+            lt = len(Samples[(C)]._BFPlin)
+            Samples[(C)]._BFPlin = Samples[(C)]._BFPlin - Zerolin[:lt]
+
+    # Draw the graph with all curves.
+    Draw_Cumulative(Config.fileList,
+                    Samples,
+                    RFile,
+                    Config,
+                    BilanPdf
                     )
 
+    m += 1
+    Config._UpdateCK(m, '')
 
-for C in Config.fileList:
-    f += 1
-    # Creating the local object instance.
-    NameE = C
-    PathE = join(Config.INpath, NameE)
+    # Create all 'Mean' experiment and Graph.
+    FCStoCSV(Config.fileList, Samples, F)
 
-    Config._UpdateCK(f, NameE)
-    Samples[(C)] = Echantillon(C,
-                               PathE,
-                               NameE,
-                               Config
-                               )
+    # Close the report file.
+    F.close()
 
-    # Create report first page.
-    if f == 1:
-        # Use the first couple to generate the txt file.
-        Conditions(BilanPdf,
-                   C,
-                   Samples,
-                   GC
-                   )
+    # Close the PDF file.
+    BilanPdf.close()
+    Config.destroy()
 
-# Initialize the txt report.
-F = CreateTXT(Samples,
-              C,
-              Config
-              )
-
-# Creating graph.
-m = 0
-
-Config._setProgress(m,
-                    len(Config.fileList),
-                    'REMOVING NOISE'
-                    )
-
-Zero = Samples[(RFile)]._BFP
-Zerolin = Samples[(RFile)]._BFPlin
-for C in Config.fileList:
-    # Removing Noise for all kind of dimension BFP.
-    if Config.noise == 1:
-        lt = len(Samples[(C)]._BFP)
-        Samples[(C)]._BFP = Samples[(C)]._BFP - Zero[:lt]
-
-        lt = len(Samples[(C)]._BFPlin)
-        Samples[(C)]._BFPlin = Samples[(C)]._BFPlin - Zerolin[:lt]
+    # Display the result in a window
+    Result(Config)
 
 
-# Draw the graph with all curves.
-Draw_Cumulative(Config.fileList,
-                Samples,
-                RFile,
-                Config,
-                BilanPdf
-                )
-
-m += 1
-Config._UpdateCK(m, '')
-
-# Create all 'Mean' experiment and Graph.
-FCStoCSV(Config.fileList, Samples, F)
-
-# Close the report file.
-F.close()
-
-# Close the PDF file.
-BilanPdf.close()
-Config.destroy()
-
-# Display the result in a window
-Result(Config)
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()

@@ -46,7 +46,7 @@ class Echantillon:
         self._GFPslice += self.GFPchannel
         self._GFPslice += ' slice (' + str(self._GFPlimits[0])
         self._GFPslice += ', ' + str(self._GFPlimits[1]) + ')'
-        self._nBinlin = 500
+        self._nBinlin = 5000
         self._binjump = int(self._nBinlin/config.nbins)
 
         self._Couple = C
@@ -72,7 +72,7 @@ class Echantillon:
         # Calculating GFP concentration
         # self._Conc()
 
-        self._nsteps = 1 + 2  # Only one slice of GFP
+        self._nsteps = 1 + 1  # Only one slice of GFP
 
         self._step = 0
 
@@ -105,9 +105,6 @@ class Echantillon:
 
         self._BFPlins = np.array([])
         self._BFPbins = np.array([])
-
-        # Perform Titration.
-        self._Titration(config)
 
         # Perform cumulative histogram for BFP
         self._CumulHisto(self._GFPlimits[0], self._GFPlimits[1])
@@ -154,6 +151,11 @@ class Echantillon:
         # Gating.
         gsample = self._sample.gate(Gate)
 
+        # Obtain real mean
+        self._BFP = np.append(self._BFP,
+                              gsample[self.BFPchannel].mean()
+                              )
+
         # Creating histogram
         val = gsample.data[self.BFPchannel].values
 
@@ -166,7 +168,7 @@ class Echantillon:
         self.mBFP = gsample[self.BFPchannel].mean()
 
         # To have same dim that _BFPlin
-        self._BFPbin = self._BFPbin[:-1]
+        self._BFPbin = self._BFPbin[1:]
 
         # Contribution to the mean
         self._BFPlin = self._BFPlin * self._BFPbin / float(len(val))
@@ -186,47 +188,6 @@ class Echantillon:
         self._NbC = self._sample.data.shape[0]
 
         # END OF REMOVE BUBBLES
-
-    def _Titration(self,
-                   config):
-        """Titrate the BFP as a function of Cst RFP and Variable GFP."""
-        # Red Gate.
-        rgate = FlowCytometryTools.IntervalGate((self._RFPlimits[0],
-                                                 self._RFPlimits[1]),
-                                                self.RFPchannel,
-                                                region='in'
-                                                )
-
-        # Defining the gates.
-        ggate = FlowCytometryTools.IntervalGate((self._GFPlimits[0],
-                                                 self._GFPlimits[1]),
-                                                self.GFPchannel,
-                                                region='in'
-                                                )
-        Gate = rgate & ggate
-
-        # Gating.
-        gsample = self._sample.gate(Gate)
-
-        # Update BFP and GFP arrays.
-        self._GFP = np.append(self._GFP,
-                              (self._GFPlimits[0] + self._GFPlimits[1])/2
-                              )
-
-        self._BFP = np.append(self._BFP,
-                              gsample[self.BFPchannel].mean()
-                              )
-
-        # Delete temp sample to accelerate reattribution.
-        del gsample
-
-        # update progressbar 2
-        self._step += 1
-        config._UpdateCK2(self._step)
-
-        self._BFP = np.nan_to_num(self._BFP)
-
-        # END OF TITRATION
 
     def _report(self,
                 reportfile
