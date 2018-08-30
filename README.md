@@ -1,20 +1,20 @@
-**Analysis of QY2H Data**
+**<span style="color:teal">Analysis of QY2H Data</span>**
 ===
 
-**Introduction**
+**<span style="color:teal">Introduction</span>**
 --
 This program permits to easily generate *in cellulo* affinity ladders from `quantitative Yeast Two Hybrid` experiments [Ref]. The program requires linear flowcytometry data `.fcs` files, and generates a `.csv` table file associated with a `.pdf` report enclosing the affinity ladder graph.
 
-**Authors**
+**<span style="color:teal">Authors</span>**
 --
 
-![Simbio Logo](src/Logo.jpg) |![LBMC Logo](doc/Logo_LBMC.jpg) ![CNRS Logo](doc/Logo_cnrs.jpg) ![ENS Logo](doc/Logo_ens.jpg) |
+![Simbio Logo](doc/Logo.jpg) |![LBMC Logo](doc/Logo_LBMC.jpg) ![CNRS Logo](doc/Logo_cnrs.jpg) ![ENS Logo](doc/Logo_ens.jpg) |
 -----------------------------|------------|
 **CLUET David** | david.cluet@ens-lyon.fr|
 **SPICHTY Martin** | martin.spichty@ens-lyon.fr|
 
 
-**License**
+**<span style="color:teal">License</span>**
 --
 
 Copyright CNRS 2013
@@ -47,7 +47,7 @@ to use and operate it in the same conditions as regards security.
 >The fact that you are presently reading this means that--delete the_remote_branch you have had knowledge
 of the CeCILL license and that you accept its terms.
 
-**Requirements**
+**<span style="color:teal">Requirements</span>**
 --
 This program is optimized for `Python 2.7` with the following libraries:
 
@@ -69,13 +69,48 @@ This program is optimized for `Python 2.7` with the following libraries:
 
 * `Tkinter`: To generate the GUI of the program.
 
-
-
-
-**User Guide**
+**<span style="color:teal">Files</span>**
 --
 
-*1 Recommendation for acquisition*
+- README.md
+- LICENSE.txt
+
+- [] **src**
+    - `Analysis_QY2H.py`
+
+    - [] **utils**
+        - `__init__.py`
+        - `channels.config`
+        - `Colors.py`
+        - `Configuration.py`
+        - `Configure_Channels.py`
+        - `Ending_Window.py`
+        - `Functions.py`
+        - `Logo.jpg`
+        - `Object_Echantillon.py`
+        - `Opening_window.py`
+        - `Variables.py`
+
+- [] **doc**
+    - Analysis_Configuration.png
+    - Analysis_Progress.png
+    - Logo_cnrs.jpg
+    - Logo_ens.jpg
+    - Logo_LBMC.jpg
+    - Logo.jpg
+    - Main_Menu.jpg
+    - Results.png
+    - Select_Channels.png
+    - Select_File.png
+    - Select_Input.png
+    - Select_Output.png
+
+
+
+**<span style="color:teal">User Guide</span>**
+--
+
+*<span style="color:teal">1 Recommendation for acquisition</span>*
 -
 Our program requires `linear` values for all fluorescence channels. Thus, be vigilant that your acquisition program is saving data as linear (even if your acquisition display is `log` or `hyper log`).
 
@@ -84,7 +119,7 @@ Yeasts are small cells, so we recommend to use the `Height (H)` of your channels
 
 Thus we strongly recommend to use as much as possible **non-manipulated** values.  
 
-*2 Main Menu*
+*<span style="color:teal">2 Main Menu</span>*
 -
 To start the program you need to execute the `Analysis_QY2H.py` python script:
 
@@ -98,41 +133,41 @@ The main menu will propose you different functions:
 3. **Abort** To exit the program.
 
 
-![Main Menu](/Screenshots/Main_Menu.png)
+![Main Menu](/doc/Main_Menu.png)
 
 Before performing any analysis it is recommended to configure your channels so they fit with the names used by your flowcytometer during the acquisition.
 
-*3 Configure the names of the channels*
+*<span style="color:teal">3 Configure the names of the channels</span>*
 -
 
 When clicking on `Configure channels`, the program prompts you to choose a `.fcs` file.
 
-![Select File](/Screenshots/Select_File.png)
+![Select File](/doc/Select_File.png)
 
 The program will identify all channels recorded in your file. You can then attribute the correct names to the various channels. They will be saved in the `channels.config` file when clicking on `VALIDATE`
 
-![Select Channels](/Screenshots/Select_Channels.png)
+![Select Channels](/doc/Select_Channels.png)
 
 >Note that in our original qY2H system the `BFP` channel corresponds to the `Read-Out` you want to quantify.
 >The `RFP` and the `GFP` channels correspond to the `BD-Bait` and `AD-Prey` fusion proteins.
 
 
 
-*4 Perform an analysis*
+*<span style="color:teal">4 Perform an analysis</span>*
 -
 When clicking on `Start analysis`, the program prompts you the analysis configuration window. You need first to select the folder where all your files (for one single experiment) are stored.
 
 The program will automatically find all `.fcs` files present in this folder and display them in the analysis settings interface.
 
-![Input](/Screenshots/Select_Input.png)
+![Input](/doc/Select_Input.png)
 
 You need then to specific in which folder you want the output files to be generated. By default, the program is set on the input folder.
 
-![Output](/Screenshots/Select_Output.png)
+![Output](/doc/Select_Output.png)
 
 Once the path of the `ÌNPUT` and `OUTPUT` folders are set, you have access to the analysis settings. The program will generate the `Affinity ladder` by taking a sub-ensemble of cells using thin gating in the `AD-Prey GFP` and `BD-Bait RFP` channels. By default the minimal and maximal values are set to those of the Fig 3 (B and C) of our publication.
 
-![Configuration](/Screenshots/Analysis_Configuration.png)
+![Configuration](/doc/Analysis_Configuration.png)
 
 The maximum in the `Read-out BFP` channel, corresponds to the upper-limit of the generated `Cumulative mean` for each sample. If after one analysis your curves are not reaching a plateau, increase this value. In the reverse situation where the plateau appears to early, decrease this maximum.
 
@@ -148,16 +183,16 @@ You have the possibility to display the `Cumulative mean` in log or linear scale
 
 When clicking `START`, the program proceeds to the analysis (only if a negative control has been specified).
 
-![Progress](/Screenshots/Analysis_Progress.png)
+![Progress](/doc/Analysis_Progress.png)
 
 During the analysis the two `Progress Bars` inform you which file (first bar) is currently processed, and which analysis step (second bar) is performed.
 
 Finally, the program displays the result of the analysis, with the main settings in the title.
 
-![Results](/Screenshots/Results.png)
+![Results](/doc/Results.png)
 
 Click on `ABORT` to exit the program.
 
-*5 Output files*
+*<span style="color:teal">5 Output files</span>*
 -
 The program generates two files. One `.csv` table containing the `mean BFP` value for each file (after substraction of the negative control, if selected), and one `.pdf` report file with the graph. This two files have a common unique prefix based on the date and time of analysis.  
