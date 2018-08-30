@@ -361,7 +361,7 @@ class configuration(tk.Tk):
                      Min,
                      Max,
                      operation):
-        """Initiate progress bar."""
+        """Initialize progress bar."""
         self.progressCK['value'] = Min
         self.progressCK['maximum'] = Max
         self.op = operation
