@@ -31,7 +31,7 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
               CR,
               Config
               ):
-    """Create the tx report file."""
+    """Create the txt report file."""
     # Name of the file with unique date-time tag.
     now = datetime.datetime.now()
     NomTxt = str(now.year) + '-' + str(now.month) + '-' + str(now.day) + '_'

@@ -15,7 +15,7 @@ from Configure_Channels import get_FilePath, Channels
 
 
 class Start(tk.Tk):
-    """Configuration GUI."""
+    """Display the Welcome GUI."""
 
     def __init__(self):
         """Create the window."""

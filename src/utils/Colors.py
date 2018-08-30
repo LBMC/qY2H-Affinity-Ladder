@@ -4,9 +4,9 @@ import matplotlib
 
 
 def CreateMyColors():
-    """Function creating the custom color code.
+    """Create the custom color code.
 
-    Uses the JET cmap of matplotlib.
+    Uses the JET cmap of matplotlib as basis.
     """
     # Message for the user.
 

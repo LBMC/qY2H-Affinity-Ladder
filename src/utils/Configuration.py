@@ -344,7 +344,7 @@ class configuration(tk.Tk):
     def _setProgress2(self,
                       Min,
                       Max):
-        """Initiate progress bar."""
+        """Initialize progress bar."""
         self.progressCK2['value'] = Min
         self.progressCK2['maximum'] = Max
         self.update_idletasks()

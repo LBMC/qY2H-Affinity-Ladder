@@ -130,7 +130,7 @@ class Echantillon:
     def _CumulHisto(self,
                     Min,
                     Max):
-        """Creation of cumulative mean histogram."""
+        """Create a cumulative mean histogram."""
         # Red Gate.
         rgate = FlowCytometryTools.IntervalGate((self._RFPlimits[0],
                                                  self._RFPlimits[1]),

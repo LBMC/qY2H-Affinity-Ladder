@@ -14,7 +14,7 @@ from os.path import join
 
 
 class Result(tk.Tk):
-    """Configuration GUI."""
+    """Display the result of the analysis in a GUI."""
 
     def __init__(self, Config):
         """Create the window."""
