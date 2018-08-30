@@ -21,7 +21,7 @@ class Echantillon:
                  nom,  # Name of the Echantillon.
                  config  # configuration.
                  ):
-        """Constructor method."""
+        """Construct Object."""
         # Retrieve all channels names
         PathLog = os.path.dirname(os.path.abspath(__file__))
         PathChannels = PathLog + os.sep + 'channels.config'

@@ -5,18 +5,17 @@
 from os.path import join
 
 # Own libraries.
-from Object_Echantillon import Echantillon
-
-from Functions import Conditions, FCStoCSV
-from Functions import CreatePDF, CreateTXT, Draw_Cumulative
-from Opening_window import Start
-from Configuration import configuration
-from Ending_Window import Result
-from Colors import CreateMyColors
+from utils.Object_Echantillon import Echantillon
+from utils.Functions import Conditions, FCStoCSV
+from utils.Functions import CreatePDF, CreateTXT, Draw_Cumulative
+from utils.Opening_window import Start
+from utils.Configuration import configuration
+from utils.Ending_Window import Result
+from utils.Colors import CreateMyColors
 
 
 def main():
-    """Main program."""
+    """Execute main program."""
     """
     ALL ._Functions are those I developped.
     The _ is only there to indicate a non Python native object/functions.
