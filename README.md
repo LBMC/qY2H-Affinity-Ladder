@@ -114,7 +114,7 @@ This program is optimized for `Python 2.7` with the following libraries:
 -
 Our program requires `linear` values for all fluorescence channels. Thus, be vigilant that your acquisition program is saving data as linear (even if your acquisition display is `log` or `hyper log`).
 
-Yeasts are small cells, so we recommend to use the `Height (H)` of your channels instead of the `Area (A)` [Ref]. Moreover, some flowcytometer can apply internal corrections on specific channels. For example, the MacsquantVYB (that we used for our experiment) is correcting the `Area A` of each channels.
+Yeasts are small cells, so we recommend to use the `Height (H)` of your channels instead of the `Area (A)` [Ref]. Moreover, some flow-cytometers can apply internal corrections on specific channels. For example, the MacsquantVYB (that we used for our experiment) is correcting the `Area A` of each channels.
 >Area is the sum of a defined number of adjacent samples at the trigger time point devided by a scaling factor. This factor is chosen in a way that for "normal" events H=A to obtain a diagonal. The scaling factor is pressure dependent.
 
 Thus we strongly recommend to use as much as possible **non-manipulated** values.  
@@ -128,14 +128,14 @@ $ python Analysis_QY2H.py
 ```
 
 The main menu will propose you different functions:
-1. **Configure channels** That permit you to specifically identify and attribute the names of the flowcytometer channels.
+1. **Configure channels** That permit you to specifically identify and attribute the names of the flow-cytometer channels.
 2. **Start analysis** To generate a `quantitative Yeast Two Hybrid` affinity from a set of `.fcs` files.
 3. **Abort** To exit the program.
 
 
 ![Main Menu](/doc/Main_Menu.png)
 
-Before performing any analysis it is recommended to configure your channels so they fit with the names used by your flowcytometer during the acquisition.
+Before performing any analysis it is recommended to configure your channels so they fit with the names used by your flow-cytometer during the acquisition.
 
 *<span style="color:teal">3 Configure the names of the channels</span>*
 -
@@ -144,7 +144,7 @@ When clicking on `Configure channels`, the program prompts you to choose a `.fcs
 
 ![Select File](/doc/Select_File.png)
 
-The program will identify all channels recorded in your file. You can then attribute the correct names to the various channels. They will be saved in the `channels.config` file when clicking on `VALIDATE`
+The program will identify all channels recorded in your file. You can then attribute the correct names to the various channels. They will be saved in the `channels.config` file (in the `utils` folder) when clicking on `VALIDATE`
 
 ![Select Channels](/doc/Select_Channels.png)
 
@@ -155,7 +155,7 @@ The program will identify all channels recorded in your file. You can then attri
 
 *<span style="color:teal">4 Perform an analysis</span>*
 -
-When clicking on `Start analysis`, the program prompts you the analysis configuration window. You need first to select the folder where all your files (for one single experiment) are stored.
+When clicking on `Start analysis`, the program displays the analysis configuration window. You need first to select the folder where all your files (for one single experiment) are stored.
 
 The program will automatically find all `.fcs` files present in this folder and display them in the analysis settings interface.
 
@@ -169,13 +169,15 @@ Once the path of the `ÌNPUT` and `OUTPUT` folders are set, you have access to t
 
 ![Configuration](/doc/Analysis_Configuration.png)
 
-The maximum in the `Read-out BFP` channel, corresponds to the upper-limit of the generated `Cumulative mean` for each sample. If after one analysis your curves are not reaching a plateau, increase this value. In the reverse situation where the plateau appears to early, decrease this maximum.
+The maximum in the `Read-out BFP` channel, corresponds to the upper-limit (x axis) of the generated `Cumulative mean` for each sample.
+
+If after one analysis your curves are not reaching a plateau, increase this value. In the reverse situation where the plateau appears to early, decrease this maximum.
 
 The value `BFP bins` corresponds to the number of points you want to be displayed on the final graph. In order to avoid binning effects of the `Cumulative mean` depending on this value, the `Cumulative mean` is first calculated using a hardcoded 5000 bins value that allows an excellent match between the convergence of the calculated `Cumulative mean` and the actual `Mean` of the population. Then, regularly spaced points will be picked to be displayed following the `BFP bins` value that you specified.
 
-You can remove the background of the system by selecting `Remove negative Control`. In this case the negative control will not be displayed (as it becomes equal to 0). Deselect this option could be a good option to monitor the real contribution of the background in your experimental/analyis setup, especially for the weakest interactors.
+You can remove the background of the system by selecting `Remove negative Control`. In this case the negative control will not be displayed (as it becomes equal to 0). Deselect this option could be a good option to monitor the real contribution of the background in your experimental/analysis setup, especially for the weakest interactors.
 
-You need to specify which sample file corresponds to your negative control. In this example, the file `DC2017-06-22_0-0.fcs` corresponds to a qY2H experiment performed with the fluorescent empty (0) bait and prey fusion proteins.
+You need to specify which sample file corresponds to your negative control. In this example, the file `DC2017-06-22_0-0.fcs` corresponds to a qY2H experiment performed with the fluorescent empty (0) BD-Bait and AD-Prey fusion proteins.
 
 The `Number of cells` value corresponds to the maximum number of cells to be loaded from your file before doing the dual gating in the `AD-Prey GFP` and `BD-Bait RFP` channels.
 
