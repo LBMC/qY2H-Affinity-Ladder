@@ -9,6 +9,9 @@ limitsRFP = [700, 900]
 # Removal of Noise.
 RemoveNoise = 1
 
+# Normalization
+NormalizeSignal = 1
+
 # Number of Cells.
 NbC = 10000000
 

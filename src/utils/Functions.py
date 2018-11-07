@@ -98,6 +98,7 @@ def Conditions(myPdf,  # pdf File to transfert the graph.
 def Draw_Cumulative(Couples_M,
                     Sample,
                     Ref,
+                    Standard,
                     Config,
                     pdf
                     ):
@@ -137,7 +138,8 @@ def Draw_Cumulative(Couples_M,
         ind = Sample[(C)]._BFPlin.shape[0] - 1
         T = C + '\n<' + BFPchannel + '> = '
         T += str(round(Sample[(C)]._BFPlin[ind], 2)) + '\n'
-        if C != Ref:
+
+        if C != Ref and C != Standard:
             if Config.semilog == 1:
                 plt.semilogy(Sample[(C)]._BFPbins,
                              Sample[(C)]._BFPlins,
@@ -148,6 +150,8 @@ def Draw_Cumulative(Couples_M,
                              marker=mymarker,
                              markersize=5
                              )
+                print(T)
+
             else:
                 plt.plot(Sample[(C)]._BFPbins,
                          Sample[(C)]._BFPlins,
@@ -158,6 +162,8 @@ def Draw_Cumulative(Couples_M,
                          marker=mymarker,
                          markersize=5
                          )
+                print(T)
+
             index += 1
             if index > 15:
                 index = 0
@@ -165,6 +171,7 @@ def Draw_Cumulative(Couples_M,
 
         elif C == Ref and Config.noise == 0:
             if Config.semilog == 1:
+                T += "Negative CTRL\n"
                 plt.semilogy(Sample[(C)]._BFPbins,
                              Sample[(C)]._BFPlins,
                              linewidth=3,
@@ -172,7 +179,10 @@ def Draw_Cumulative(Couples_M,
                              color='mc0',
                              linestyle=':'
                              )
+                print(T)
+
             else:
+                T += "Negative CTRL\n"
                 plt.plot(Sample[(C)]._BFPbins,
                          Sample[(C)]._BFPlins,
                          linewidth=3,
@@ -180,8 +190,35 @@ def Draw_Cumulative(Couples_M,
                          color='mc0',
                          linestyle=':'
                          )
-    if Config.semilog == 1:
+                print(T)
+
+        elif C == Standard:
+            if Config.semilog == 1:
+                T += "Normalization CTRL\n"
+                plt.semilogy(Sample[(C)]._BFPbins,
+                             Sample[(C)]._BFPlins,
+                             linewidth=3,
+                             label=T,
+                             color='mc0',
+                             linestyle='--'
+                             )
+                print(T)
+
+            else:
+                T += "Normalization CTRL\n"
+                plt.plot(Sample[(C)]._BFPbins,
+                         Sample[(C)]._BFPlins,
+                         linewidth=3,
+                         label=T,
+                         color='mc0',
+                         linestyle='--'
+                         )
+                print(T)
+
+    if Config.semilog == 1 and Config.stand == 0:
         plt.ylim(ymin=1)
+    elif Config.semilog == 1 and Config.stand == 1:
+        plt.ylim(ymin=0.001)
     else:
         plt.ylim(ymin=0)
 

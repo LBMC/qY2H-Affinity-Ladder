@@ -49,6 +49,9 @@ def main():
     # Ref file
     RFile = Config.Ref
 
+    # Norm file
+    NFile = Config.B112
+
     # Create pdf file.
     BilanPdf = CreatePDF(Config)
 
@@ -96,12 +99,14 @@ def main():
                         'REMOVING NOISE'
                         )
 
-    Zero = Samples[(RFile)]._BFP
-    Zerolin = Samples[(RFile)]._BFPlin
-    Zerolins = Samples[(RFile)]._BFPlins
-    for C in Config.fileList:
-        # Removing Noise for all kind of dimension BFP.
-        if Config.noise == 1:
+    # Removing Noise for all kind of dimension BFP.
+    if Config.noise == 1:
+
+        Zero = Samples[(RFile)]._BFP
+        Zerolin = Samples[(RFile)]._BFPlin
+        Zerolins = Samples[(RFile)]._BFPlins
+
+        for C in Config.fileList:
             lt = len(Samples[(C)]._BFP)
             Samples[(C)]._BFP = Samples[(C)]._BFP - Zero[:lt]
 
@@ -110,10 +115,26 @@ def main():
             lt = len(Samples[(C)]._BFPlin)
             Samples[(C)]._BFPlin = Samples[(C)]._BFPlin - Zerolin[:lt]
 
+    if Config.stand == 1:
+
+        Standard = Samples[(NFile)]._BFP
+        Standardlin = Samples[(NFile)]._BFPlin
+        Standardlins = Samples[(NFile)]._BFPlins
+
+        for C in Config.fileList:
+            lt = len(Samples[(C)]._BFP)
+            Samples[(C)]._BFP = Samples[(C)]._BFP / Standard[:lt]
+
+            lt = len(Samples[(C)]._BFPlins)
+            Samples[(C)]._BFPlins = Samples[(C)]._BFPlins / Standardlins[:lt]
+            lt = len(Samples[(C)]._BFPlin)
+            Samples[(C)]._BFPlin = Samples[(C)]._BFPlin / Standardlin[:lt]
+
     # Draw the graph with all curves.
     Draw_Cumulative(Config.fileList,
                     Samples,
                     RFile,
+                    NFile,
                     Config,
                     BilanPdf
                     )

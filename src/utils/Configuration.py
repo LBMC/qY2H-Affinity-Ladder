@@ -9,7 +9,7 @@ import os
 import numpy as np
 from PIL import Image, ImageTk
 
-from Variables import limitsGFP, limitsRFP, RemoveNoise, NbC
+from Variables import limitsGFP, limitsRFP, RemoveNoise, NbC, NormalizeSignal
 
 
 class configuration(tk.Tk):
@@ -44,6 +44,7 @@ class configuration(tk.Tk):
         self.rup = limitsRFP[0]
         self.rlow = limitsRFP[1]
         self.noise = RemoveNoise
+        self.stand = NormalizeSignal
         self.NbC = NbC
         self.equation = ''
         self.control = ''
@@ -223,7 +224,7 @@ class configuration(tk.Tk):
         self.BFPbi.insert(0, str(self.nbins))
         self.BFPbi.place(x=500, y=Y, width=100, height=H)
 
-        # Checkbutton
+        # Checkbutton for negative control
         Y += H + margin
         self.RN = tk.IntVar(value=RemoveNoise)
         self.Remove = tk.Checkbutton(self,
@@ -235,21 +236,47 @@ class configuration(tk.Tk):
                                      )
         self.Remove.place(x=20, y=Y, width=500, height=H)
 
+        # Checkbutton for normalisation control
+        Y += H + margin
+        self.Nor = tk.IntVar(value=NormalizeSignal)
+        self.Norm = tk.Checkbutton(self,
+                                   text=('Normalize results'),
+                                   variable=self.Nor,
+                                   font=('Courier', 16),
+                                   bg='#99ccff'
+                                   )
+        self.Norm.place(x=20, y=Y, width=250, height=H)
+
         Y += H + margin
 
-        # Files
-        self.labelFile = tk.Label(self,
-                                  text='Specify negative Control:',
-                                  anchor='w',
-                                  font=('Courier', 16)
-                                  )
-        self.labelFile.place(x=20, y=Y, width=400, height=H)
+        # Files1 & 2
+        self.labelFile1 = tk.Label(self,
+                                   text='Negative Control:',
+                                   anchor='w',
+                                   font=('Courier', 16)
+                                   )
+        self.labelFile1.place(x=20, y=Y, width=300, height=H)
+
+        self.labelFile2 = tk.Label(self,
+                                   text='Normalization Control:',
+                                   anchor='w',
+                                   font=('Courier', 16)
+                                   )
+        self.labelFile2.place(x=370, y=Y, width=300, height=H)
 
         Y += H + margin
         self.F = tk.Listbox(self,
                             font=('Courier', 12),
                             exportselection=0
                             )
+        self.F.place(x=20, y=Y, width=300, height=200)
+
+        self.N = tk.Listbox(self,
+                            font=('Courier', 12),
+                            exportselection=0
+                            )
+        self.N.place(x=370, y=Y, width=300, height=200)
+
         self.Nfiles = 0
         self.fileList = np.array([])
         os.chdir(self.Input['text'])
@@ -260,11 +287,10 @@ class configuration(tk.Tk):
 
         for f in self.fileList:
             self.F.insert(tk.END, f)
-
-        self.F.place(x=20, y=Y, width=400, height=300)
+            self.N.insert(tk.END, f)
 
         # NbC
-        Y += 300 + margin
+        Y += 200 + margin
         self.labelNbc = tk.Label(self,
                                  text='Number of cells:',
                                  anchor='w',
@@ -400,11 +426,17 @@ class configuration(tk.Tk):
         # Remove noise
         self.noise = int(self.RN.get())
 
+        # Normalization
+        self.stand = int(self.Nor.get())
+
         # Equation
         self.control = self.F.get(self.F.curselection())
 
         # Equation
         self.Ref = self.F.get(self.F.curselection())
+
+        # File for normalisation
+        self.B112 = self.N.get(self.N.curselection())
 
         # Number of cells
         self.NbC = int(self.EntNbc.get())
