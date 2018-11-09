@@ -208,4 +208,4 @@ The program generates two files. One `.csv` table containing the `mean BFP` valu
 
 *<span style="color:teal">6 Example files</span>*
 -
-The flow-cytometry files used to perform this example are available [Here](https://www.google.com)   
+The flow-cytometry files used to perform this example are available [Here](http://www.ens-lyon.fr/LBMC/equipes/simbio/software.html/automated-analyis-of-quantitative-yeast-two-hybrid)   
