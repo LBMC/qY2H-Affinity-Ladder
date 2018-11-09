@@ -117,18 +117,18 @@ def main():
 
     if Config.stand == 1:
 
-        Standard = Samples[(NFile)]._BFP
-        Standardlin = Samples[(NFile)]._BFPlin
-        Standardlins = Samples[(NFile)]._BFPlins
+        Standard = Samples[(NFile)]._BFP[-1]
+        Standardlin = Samples[(NFile)]._BFPlin[-1]
+        Standardlins = Samples[(NFile)]._BFPlins[-1]
 
         for C in Config.fileList:
             lt = len(Samples[(C)]._BFP)
-            Samples[(C)]._BFP = Samples[(C)]._BFP / Standard[:lt]
+            Samples[(C)]._BFP = Samples[(C)]._BFP / Standard
 
             lt = len(Samples[(C)]._BFPlins)
-            Samples[(C)]._BFPlins = Samples[(C)]._BFPlins / Standardlins[:lt]
+            Samples[(C)]._BFPlins = Samples[(C)]._BFPlins / Standardlins
             lt = len(Samples[(C)]._BFPlin)
-            Samples[(C)]._BFPlin = Samples[(C)]._BFPlin / Standardlin[:lt]
+            Samples[(C)]._BFPlin = Samples[(C)]._BFPlin / Standardlin
 
     # Draw the graph with all curves.
     Draw_Cumulative(Config.fileList,

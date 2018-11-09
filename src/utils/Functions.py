@@ -133,13 +133,22 @@ def Draw_Cumulative(Couples_M,
     dictMarker[(3, 1)] = '>'
     dictMarker[(3, 0)] = 'D'
 
+    mymin = 1
+
     for C in Couples_M:
         mymarker = dictMarker[(iteration, index % 2)]
         ind = Sample[(C)]._BFPlin.shape[0] - 1
         T = C + '\n<' + BFPchannel + '> = '
         T += str(round(Sample[(C)]._BFPlin[ind], 2)) + '\n'
 
+        mypotentialmin = Sample[(C)]._BFPlin[ind]
+
         if C != Ref and C != Standard:
+
+            if mypotentialmin < mymin:
+                mymin = mypotentialmin
+                print(C + " " + str(mymin))
+
             if Config.semilog == 1:
                 plt.semilogy(Sample[(C)]._BFPbins,
                              Sample[(C)]._BFPlins,
@@ -170,6 +179,11 @@ def Draw_Cumulative(Couples_M,
                 iteration += 1
 
         elif C == Ref and Config.noise == 0:
+
+            if mypotentialmin < mymin:
+                mymin = mypotentialmin
+                print(C + " " + str(mymin))
+
             if Config.semilog == 1:
                 T += "Negative CTRL\n"
                 plt.semilogy(Sample[(C)]._BFPbins,
@@ -218,7 +232,9 @@ def Draw_Cumulative(Couples_M,
     if Config.semilog == 1 and Config.stand == 0:
         plt.ylim(ymin=1)
     elif Config.semilog == 1 and Config.stand == 1:
-        plt.ylim(ymin=0.001)
+        print(str(mymin))
+        plt.ylim(ymin=mymin/2)
+        plt.ylim(ymax=2)
     else:
         plt.ylim(ymin=0)
 
