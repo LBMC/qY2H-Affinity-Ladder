@@ -1,14 +1,9 @@
 """All required functions to generate a qY2H affinnity ladder."""
 
-# import sub modules
-from utils import Colors
-from utils import Configuration
-from utils import Configure_Channels
-from utils import Ending_Window
-from utils import Functions
-from utils import Object_Echantillon
-from utils import Opening_window
-from utils import Variables
+# info
+__version__ = '1.0'
+__author__ = 'Cluet David'
+__date__ = '2018-09-30'
 
 """
 FILES DESCRIPTION
@@ -61,9 +56,3 @@ Variables.py:
         the behaviour analysis.
 
 """
-
-
-# info
-__version__ = '1.0'
-__author__ = 'Cluet David'
-__date__ = '2018-09-30'
