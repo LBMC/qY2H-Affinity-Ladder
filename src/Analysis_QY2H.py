@@ -22,7 +22,7 @@ def main():
     The _ is only there to indicate a non Python native object/functions.
     """
     # GIT commit considered as functional.
-    GC = '0f2182916ce9b347e7771370d03817ababdb3958'
+    GC = '3ef59061e0be16708e93bc9ed119769b1bf19923'
 
     # Create colors
     CreateMyColors()
