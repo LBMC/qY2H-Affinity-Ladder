@@ -177,13 +177,13 @@ The value `BFP bins` corresponds to the number of points you want to be displaye
 
 You can remove the background of the system by selecting `Remove negative Control`. In this case the negative control will not be displayed (as it becomes equal to 0). Deselect this option could be a good option to monitor the real contribution of the background in your experimental/analysis setup, especially for the weakest interactors.
 
-The program is by default set to standardize all experiments using a covalent interactor (B112-AD fused to the Lex-A BD). You can inactivate this otion by unchecking `Normalize results`.
-
 ![Controls](/doc/Select_Controls.png)
 
-You need to specify which sample files correspond to your `negative` (0-0) and `normalization`  (B112-H102A) controls, even if no background substraction nor signal normalization is applied. In this example, the file `DC2017-06-22_0-0.fcs` corresponds to a qY2H experiment performed with the fluorescent empty (0) BD-Bait and AD-Prey fusion proteins.
+You need to specify which sample file corresponds to your `negative` (0-0) control, even if no background substraction is applied. In this example, the file `0-0.fcs` corresponds to a qY2H experiment performed with the fluorescent empty (0) BD-Bait and AD-Prey fusion proteins.
 
 The `Number of cells` value corresponds to the maximum number of cells to be loaded from your file before doing the dual gating in the `AD-Prey GFP` and `BD-Bait RFP` channels.
+
+**We highly recommend you to analyse at least 1,000,000 event to obtain a reliable affinity ladder.**
 
 You have the possibility to display the `Cumulative mean` in log or linear scale.
 
@@ -195,7 +195,6 @@ During the analysis the two `Progress Bars` inform you which file (first bar) is
 
 Finally, the program displays the result of the analysis, with the main settings in the title. Here we present the result with the following activated options:
 - **Remove negative Control**
-- **Normalize results**
 - **Y axis in log scale**
 
 ![Results](/doc/Results.png)

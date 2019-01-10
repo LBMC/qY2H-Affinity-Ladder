@@ -18,7 +18,7 @@ def CreatePDF(Config):
     now = datetime.datetime.now()
     NomPdf = str(now.year) + '-' + str(now.month) + '-' + str(now.day) + '_'
     NomPdf += str(now.hour) + '-' + str(now.minute) + '_'
-    NomPdf += 'Titration_TF'
+    NomPdf += 'Affinity_Ladder'
     NomPdf += '.pdf'
 
     # Create the matplotlib pdf report.
@@ -133,7 +133,7 @@ def Draw_Cumulative(Couples_M,
     dictMarker[(3, 1)] = '>'
     dictMarker[(3, 0)] = 'D'
 
-    mymin = 1
+    mymin = 1000000
 
     for C in Couples_M:
         mymarker = dictMarker[(iteration, index % 2)]
@@ -207,11 +207,8 @@ def Draw_Cumulative(Couples_M,
                 print(T)
 
     if Config.semilog == 1 and Config.stand == 0:
-        plt.ylim(ymin=1)
-    elif Config.semilog == 1 and Config.stand == 1:
         print(str(mymin))
         plt.ylim(ymin=mymin/2)
-        plt.ylim(ymax=2)
     else:
         plt.ylim(ymin=0)
 

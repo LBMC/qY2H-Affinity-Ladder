@@ -13,7 +13,7 @@ RemoveNoise = 1
 NormalizeSignal = 0
 
 # Number of Cells.
-NbC = 10000000
+NbC = 1000000
 
 # Figures format
 Dimension = (8, 4)  # inches.
