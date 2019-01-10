@@ -236,17 +236,6 @@ class configuration(tk.Tk):
                                      )
         self.Remove.place(x=20, y=Y, width=500, height=H)
 
-        # Checkbutton for normalisation control
-        Y += H + margin
-        self.Nor = tk.IntVar(value=NormalizeSignal)
-        self.Norm = tk.Checkbutton(self,
-                                   text=('Normalize results'),
-                                   variable=self.Nor,
-                                   font=('Courier', 16),
-                                   bg='#99ccff'
-                                   )
-        self.Norm.place(x=20, y=Y, width=250, height=H)
-
         Y += H + margin
 
         # Files1 & 2
@@ -257,25 +246,12 @@ class configuration(tk.Tk):
                                    )
         self.labelFile1.place(x=20, y=Y, width=300, height=H)
 
-        self.labelFile2 = tk.Label(self,
-                                   text='Normalization Control:',
-                                   anchor='w',
-                                   font=('Courier', 16)
-                                   )
-        self.labelFile2.place(x=370, y=Y, width=300, height=H)
-
         Y += H + margin
         self.F = tk.Listbox(self,
                             font=('Courier', 12),
                             exportselection=0
                             )
         self.F.place(x=20, y=Y, width=300, height=200)
-
-        self.N = tk.Listbox(self,
-                            font=('Courier', 12),
-                            exportselection=0
-                            )
-        self.N.place(x=370, y=Y, width=300, height=200)
 
         self.Nfiles = 0
         self.fileList = np.array([])
@@ -287,7 +263,6 @@ class configuration(tk.Tk):
 
         for f in self.fileList:
             self.F.insert(tk.END, f)
-            self.N.insert(tk.END, f)
 
         # NbC
         Y += 200 + margin
@@ -427,7 +402,7 @@ class configuration(tk.Tk):
         self.noise = int(self.RN.get())
 
         # Normalization
-        self.stand = int(self.Nor.get())
+        self.stand = NormalizeSignal
 
         # Equation
         self.control = self.F.get(self.F.curselection())
@@ -436,7 +411,7 @@ class configuration(tk.Tk):
         self.Ref = self.F.get(self.F.curselection())
 
         # File for normalisation
-        self.B112 = self.N.get(self.N.curselection())
+        self.B112 = self.F.get(self.F.curselection())
 
         # Number of cells
         self.NbC = int(self.EntNbc.get())

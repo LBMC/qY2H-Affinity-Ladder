@@ -206,29 +206,6 @@ def Draw_Cumulative(Couples_M,
                          )
                 print(T)
 
-        elif C == Standard:
-            if Config.semilog == 1:
-                T += "Normalization CTRL\n"
-                plt.semilogy(Sample[(C)]._BFPbins,
-                             Sample[(C)]._BFPlins,
-                             linewidth=3,
-                             label=T,
-                             color='mc0',
-                             linestyle='--'
-                             )
-                print(T)
-
-            else:
-                T += "Normalization CTRL\n"
-                plt.plot(Sample[(C)]._BFPbins,
-                         Sample[(C)]._BFPlins,
-                         linewidth=3,
-                         label=T,
-                         color='mc0',
-                         linestyle='--'
-                         )
-                print(T)
-
     if Config.semilog == 1 and Config.stand == 0:
         plt.ylim(ymin=1)
     elif Config.semilog == 1 and Config.stand == 1:
