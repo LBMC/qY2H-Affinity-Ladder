@@ -53,7 +53,7 @@ This program is optimized for `Python 2.7` with the following libraries:
 
 * `datetime`: To generate unique Analysis ID and file name.
 
-* `FlowCytometryTools` **v0.4.6**: To open `.fcs` files and manipulate flowcytometry data. http://eyurtsev.github.io/FlowCytometryTools/
+* `FlowCytometryTools` **v 0.4.6**: To open `.fcs` files and manipulate flowcytometry data. http://eyurtsev.github.io/FlowCytometryTools/
 
 * `glob`: To identify the `.fcs` files in the Input folder.
 
@@ -114,7 +114,7 @@ This program is optimized for `Python 2.7` with the following libraries:
 -
 Our program requires `linear` values for all fluorescence channels. Thus, be vigilant that your acquisition program is saving data as linear (even if your acquisition display is `log` or `hyper log`).
 
-Yeasts are small cells, so we recommend to use the `Height (H)` of your channels instead of the `Area (A)` [Ref]. Moreover, some flow-cytometers can apply internal corrections on specific channels. For example, the MacsquantVYB (that we used for our experiment) is correcting the `Area A` of each channels.
+Yeasts are small cells, so we recommend to use the `Height (H)` of your channels instead of the `Area (A)` [Ref]. Moreover, some flow-cytometers can apply internal corrections on specific channels. For example, the MacsquantVYB (that we used for our experiment) is correcting the `Area A` of each channels:
 >Area is the sum of a defined number of adjacent samples at the trigger time point devided by a scaling factor. This factor is chosen in a way that for "normal" events H=A to obtain a diagonal. The scaling factor is pressure dependent.
 
 Thus we strongly recommend to use as much as possible **non-manipulated** values.  
@@ -128,7 +128,7 @@ $ python Analysis_QY2H.py
 ```
 
 The main menu will propose you different functions:
-1. **Configure channels** That permit you to specifically identify and attribute the names of the flow-cytometer channels.
+1. **Configure channels** That permits you to specifically identify and attribute the names of the flow-cytometer channels.
 2. **Start analysis** To generate a `quantitative Yeast Two Hybrid` affinity from a set of `.fcs` files.
 3. **Abort** To exit the program.
 
@@ -165,7 +165,7 @@ You need then to specific in which folder you want the output files to be genera
 
 ![Output](/doc/Select_Output.png)
 
-Once the path of the `ÌNPUT` and `OUTPUT` folders are set, you have access to the analysis settings. The program will generate the `Affinity ladder` by taking a sub-ensemble of cells using thin gating in the `AD-Prey GFP` and `BD-Bait RFP` channels. By default the minimal and maximal values are set to those of the Fig 3 (B and C) of our publication.
+Once the path of the `ÌNPUT` and `OUTPUT` folders are set, you have access to the analysis settings. The program will generate the `Affinity ladder` by taking a sub-ensemble of cells using thin gating in the `AD-Prey GFP` and `BD-Bait RFP` channels. By default the minimal and maximal values are set to those of the Fig. 4 (B and C) of our publication.
 
 ![Configuration](/doc/Analysis_Configuration.png)
 
@@ -207,4 +207,4 @@ The program generates two files. One `.csv` table containing the `mean BFP` valu
 
 *<span style="color:teal">6 Example files</span>*
 -
-The flow-cytometry files used to perform this example are available [Here](http://www.ens-lyon.fr/LBMC/equipes/simbio/software.html/automated-analyis-of-quantitative-yeast-two-hybrid)   
+The flow-cytometry files used to perform this example can be downloaded from http://flowrepository.org under accession number **FR-FCM-ZYUL**

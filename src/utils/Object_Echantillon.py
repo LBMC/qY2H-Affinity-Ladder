@@ -181,8 +181,8 @@ class Echantillon:
         """Remove bubble from MacsquantVYB."""
         # Remove bubbles and keep the wanted channels.
         self._sample.data = self._sample.data[self._C
-                                              ][10000:
-                                                10000+self._NbC
+                                              ][20000:
+                                                20000+self._NbC
                                                 ]
         # Get the number of cells remaining after treatment.
         self._NbC = self._sample.data.shape[0]
