@@ -194,6 +194,6 @@ class Echantillon:
                 ):
         """Write the BFP values in the csv report file."""
         reportfile.write(self._Couple)
-        for b in self._BFP:
+        for b in self._BFPlins:
             reportfile.write(","+str(b))
         reportfile.write('\n')

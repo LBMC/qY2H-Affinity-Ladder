@@ -68,7 +68,10 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
     for g in Samples[(CR)]._GFP:
         f.write(","+str(g))
     f.write('\n')
-    f.write('\n' + BFPchannel + '\n')
+    f.write('\n' + BFPchannel)
+    for b in Samples[(CR)]._BFPbins:
+        f.write(","+str(b))
+    f.write('\n')
     return f
 
 
