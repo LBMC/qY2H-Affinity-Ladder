@@ -95,18 +95,18 @@ This program is optimized for `Python 2.7` with the following libraries:
         - `Variables.py`
 
 - [] **doc**
-    - Analysis_Configuration.png
-    - Analysis_Progress.png
+    - Analysis_Configuration.jpg
+    - Analysis_Progress.jpg
     - Logo_cnrs.jpg
     - Logo_ens.jpg
     - Logo_LBMC.jpg
     - Logo.jpg
     - Main_Menu.jpg
-    - Results.png
-    - Select_Channels.png
-    - Select_File.png
-    - Select_Input.png
-    - Select_Output.png
+    - Results.jpg
+    - Select_Channels.jpg
+    - Select_File.jpg
+    - Select_Input.jpg
+    - Select_Output.jpg
 
 
 
