@@ -166,6 +166,7 @@ class Echantillon:
                                       )
 
         self.mBFP = gsample[self.BFPchannel].mean()
+        print(self.mBFP)
 
         # To have same dim that _BFPlin
         self._BFPbin = self._BFPbin[1:]

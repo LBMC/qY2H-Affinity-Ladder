@@ -1,5 +1,6 @@
 **<span style="color:teal">Analysis of QY2H Data</span>**
 ===
+**https://github.com/dcluet/qY2H-Affinity-Ladder**
 
 **<span style="color:teal">Introduction</span>**
 --
@@ -137,7 +138,7 @@ The main menu will propose you different functions:
 3. **Abort** To exit the program.
 
 
-![Main Menu](/doc/Main_Menu.png)
+![Main Menu](/doc/Main_Menu.jpg)
 
 *<span style="color:teal">3 Configure the names of the channels</span>*
 -
@@ -146,7 +147,7 @@ Before performing your first analysis, it is recommended to configure your chann
 
 When clicking on `Configure channels`, the program prompts you to choose a `.fcs` file.
 
-![Select File](/doc/Select_File.png)
+![Select File](/doc/Select_File.jpg)
 
 The program will identify all channels recorded in your file. You can then attribute the correct names in the various columns. For the subsequent analysis, the column `BFP` corresponds to the `Reporter` you want to quantify. The `RFP` and the `GFP` columns correspond to the `BD-Bait` and `AD-Prey` fusion proteins respectively.
 
@@ -155,7 +156,7 @@ The first two columns are not used yet, but might be included in a future develo
 The select channel names will be saved in the `channels.config` file (in the `utils` folder) when clicking on `VALIDATE`.
 
 
-![Select Channels](/doc/Select_Channels.png)
+![Select Channels](/doc/Select_Channels.jpg)
 
 
 *<span style="color:teal">4 Perform an analysis</span>*
@@ -164,15 +165,15 @@ When clicking on `Start analysis`, the program displays the analysis configurati
 
 The program will automatically find all `.fcs` files present in this folder and display them in the analysis settings interface.
 
-![Input](/doc/Select_Input.png)
+![Input](/doc/Select_Input.jpg)
 
 You need then to specific in which folder you want the output files to be generated. By default, the program is set on the input folder.
 
-![Output](/doc/Select_Output.png)
+![Output](/doc/Select_Output.jpg)
 
 Once the path of the `ÌNPUT` and `OUTPUT` folders are set, you have access to the analysis settings. The program will generate the `Affinity ladder` by taking a sub-ensemble of cells using gates in the `AD-Prey GFP` and `BD-Bait RFP` channels. By default the minimal and maximal values are set to those of the Fig. 4 (B and C) of our publication.
 
-![Configuration](/doc/Analysis_Configuration.png)
+![Configuration](/doc/Analysis_Configuration.jpg)
 
 The maximum in the `Reporter (BFP)` channel, corresponds to the upper-limit (x axis) of the generated `Cumulative mean` for each sample. If the curves in the `.pdf` output file are not reaching a plateau, increase this value.
 
@@ -180,7 +181,7 @@ The value `BFP bins` corresponds to the number of points you want to be displaye
 
 You can remove the background of the system by selecting `Remove negative Control`. Unchecking this option is useful to monitor the contribution of the background in your experiment. This information is helpful especially for the weakest interactors.
 
-![Controls](/doc/Select_Controls.png)
+![Controls](/doc/Select_Controls.jpg)
 
 You need to specify which sample file corresponds to your `negative` control, even if no background subtraction is applied. Typically, the negative control corresponds to a qY2H experiment performed with fluorescent empty BD-Bait and AD-Prey fusion proteins. In our work, this control is called 0-0.fcs.
 
@@ -190,7 +191,7 @@ You have the possibility to display the `Cumulative mean` in log or linear scale
 
 When clicking `START`, the program proceeds to the analysis (only if a negative control has been specified).
 
-![Progress](/doc/Analysis_Progress.png)
+![Progress](/doc/Analysis_Progress.jpg)
 
 During the analysis the two `Progress Bars` inform you which file (first bar) is currently processed, and which analysis step (second bar) is performed.
 
@@ -198,7 +199,7 @@ Finally, the program displays the result of the analysis, with the main settings
 - **Remove negative Control**
 - **Y axis in log scale**
 
-![Results](/doc/Results.png)
+![Results](/doc/Results.jpg)
 
 Click on `ABORT` to exit the program.
 
