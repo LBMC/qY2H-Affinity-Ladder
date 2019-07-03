@@ -205,7 +205,7 @@ class configuration(tk.Tk):
 
         self.BFPin = tk.Entry(self,
                               font=('Courier', 16),
-                              bg='#99ccff'
+                              bg='#87CEFA'
                               )
         self.BFPin.insert(0, str(self.maxBFP))
         self.BFPin.place(x=250, y=Y, width=100, height=H)
@@ -219,7 +219,7 @@ class configuration(tk.Tk):
 
         self.BFPbi = tk.Entry(self,
                               font=('Courier', 16),
-                              bg='#99ccff'
+                              bg='#87CEFA'
                               )
         self.BFPbi.insert(0, str(self.nbins))
         self.BFPbi.place(x=500, y=Y, width=100, height=H)
@@ -232,13 +232,25 @@ class configuration(tk.Tk):
                                            myChannels[2]),
                                      variable=self.RN,
                                      font=('Courier', 16),
-                                     bg='#99ccff'
+                                     bg='#87CEFA'
                                      )
-        self.Remove.place(x=20, y=Y, width=500, height=H)
+        self.Remove.place(x=20, y=Y, width=550, height=H)
+
+        # Checkbutton for Normalization
+        Y += H + margin
+        self.Norm = tk.IntVar(value=NormalizeSignal)
+        self.Normalize = tk.Checkbutton(self,
+                                        text=('Normalize with Reference in ' +
+                                              myChannels[2]),
+                                        variable=self.Norm,
+                                        font=('Courier', 16),
+                                        bg='#1E90FF'
+                                        )
+        self.Normalize.place(x=20, y=Y, width=550, height=H)
 
         Y += H + margin
 
-        # Files1 & 2
+        # Negative Control
         self.labelFile1 = tk.Label(self,
                                    text='Negative Control:',
                                    anchor='w',
@@ -246,12 +258,27 @@ class configuration(tk.Tk):
                                    )
         self.labelFile1.place(x=20, y=Y, width=300, height=H)
 
+        self.labelFile2 = tk.Label(self,
+                                   text='Internal Reference:',
+                                   anchor='w',
+                                   font=('Courier', 16)
+                                   )
+        self.labelFile2.place(x=370, y=Y, width=300, height=H)
+
         Y += H + margin
         self.F = tk.Listbox(self,
                             font=('Courier', 12),
-                            exportselection=0
+                            exportselection=0,
+                            bg='#87CEFA'
                             )
         self.F.place(x=20, y=Y, width=300, height=200)
+
+        self.F2 = tk.Listbox(self,
+                             font=('Courier', 12),
+                             exportselection=0,
+                             bg='#1E90FF'
+                             )
+        self.F2.place(x=370, y=Y, width=300, height=200)
 
         self.Nfiles = 0
         self.fileList = np.array([])
@@ -263,6 +290,7 @@ class configuration(tk.Tk):
 
         for f in self.fileList:
             self.F.insert(tk.END, f)
+            self.F2.insert(tk.END, f)
 
         # NbC
         Y += 200 + margin
@@ -400,18 +428,20 @@ class configuration(tk.Tk):
 
         # Remove noise
         self.noise = int(self.RN.get())
-
-        # Normalization
-        self.stand = NormalizeSignal
-
-        # Equation
+        # File for negative control
         self.control = self.F.get(self.F.curselection())
 
-        # Equation
-        self.Ref = self.F.get(self.F.curselection())
+        print('Noise:')
+        print(self.noise)
+        print(self.control)
 
+        # Normalization
+        self.stand = int(self.Norm.get())
         # File for normalisation
-        self.B112 = self.F.get(self.F.curselection())
+        self.MAX = self.F2.get(self.F2.curselection())
+        print('Standardization:')
+        print(self.stand)
+        print(self.MAX)
 
         # Number of cells
         self.NbC = int(self.EntNbc.get())

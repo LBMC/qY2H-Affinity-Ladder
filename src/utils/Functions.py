@@ -56,17 +56,32 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
     # Create the file and allow writing.
     f = open(str(MyFile), "w+")
 
-    # Calculate the mean RFP value of the Gate currently used.
+    # Indicate the RFP gate.
     R = '(' + str(Samples[(CR)]._RFPlimits[0]) + ' - '
     R += str(Samples[(CR)]._RFPlimits[1]) + ')'
 
     # Update the csv file.
     f.write(RFPchannel + ' = ' + R + '\n')
 
-    # Create the GFP scale using the reference Manip/couple file.
-    f.write(GFPchannel)
-    for g in Samples[(CR)]._GFP:
-        f.write(","+str(g))
+    # Indicate the GFP gate.
+
+    G = '(' + str(Samples[(CR)]._GFPlimits[0]) + ' - '
+    G += str(Samples[(CR)]._GFPlimits[1]) + ')'
+
+    # Update the csv file.
+    f.write(GFPchannel + ' = ' + G + '\n')
+
+    # Indicate the PROCESSING
+    Proc = '\n' + 'Data Processing' + '\n'
+    if Config.noise == 1:
+        Proc += 'Noise removed using: ' + Config.control + '\n'
+    if Config.stand == 1:
+        Proc += 'Standardization made with: ' + Config.MAX + '\n'
+
+    # Update the csv file.
+    f.write(Proc)
+
+    # Write the BFP bins
     f.write('\n')
     f.write('\n' + BFPchannel)
     for b in Samples[(CR)]._BFPbins:
@@ -78,7 +93,8 @@ def CreateTXT(Samples,  # Dictionnary of Echantillons.
 def Conditions(myPdf,  # pdf File to transfert the graph.
                C,  # one couple.
                dict_Echantillon,  # dictionnary of all Echantillon.
-               Commit  # current version of the program.
+               Commit,   # current version of the program.
+               Config
                ):
     """Display the parameters of the analysis."""
     fig = plt.figure(figsize=Dimension)
@@ -92,6 +108,12 @@ def Conditions(myPdf,  # pdf File to transfert the graph.
     Text += ', ' + str(dict_Echantillon[(C)]._GFPlimits[1]) + ')\n'
     Text += '\n\n'
     Text += 'Commit: ' + Commit
+    # Indicate the PROCESSING
+    Text += '\n' + 'Data Processing' + '\n'
+    if Config.noise == 1:
+        Text += 'Noise removed using: ' + Config.control + '\n'
+    if Config.stand == 1:
+        Text += 'Standardization made with: ' + Config.MAX + '\n'
 
     # Display the text and transfert the figure in the pdf.
     fig.text(Left, Bottom, Text)
@@ -146,7 +168,7 @@ def Draw_Cumulative(Couples_M,
 
         mypotentialmin = Sample[(C)]._BFPlin[ind]
 
-        if C != Ref and C != Standard:
+        if C != Ref:
 
             if mypotentialmin < mymin:
                 mymin = mypotentialmin
@@ -181,33 +203,37 @@ def Draw_Cumulative(Couples_M,
                 index = 0
                 iteration += 1
 
-        elif C == Ref and Config.noise == 0:
+        elif C == Ref and Config.semilog == 0:
 
             if mypotentialmin < mymin:
                 mymin = mypotentialmin
                 print(C + " " + str(mymin))
 
-            if Config.semilog == 1:
-                T += "Negative CTRL\n"
-                plt.semilogy(Sample[(C)]._BFPbins,
-                             Sample[(C)]._BFPlins,
-                             linewidth=3,
-                             label=T,
-                             color='mc0',
-                             linestyle=':'
-                             )
-                print(T)
+            T += "Negative CTRL\n"
+            plt.plot(Sample[(C)]._BFPbins,
+                     Sample[(C)]._BFPlins,
+                     linewidth=3,
+                     label=T,
+                     color='mc0',
+                     linestyle=':'
+                     )
+            print(T)
 
-            else:
-                T += "Negative CTRL\n"
-                plt.plot(Sample[(C)]._BFPbins,
+        elif C == Ref and Config.semilog == 1 and Config.noise == 0:
+
+            if mypotentialmin < mymin:
+                mymin = mypotentialmin
+                print(C + " " + str(mymin))
+
+            T += "Negative CTRL\n"
+            plt.semilogy(Sample[(C)]._BFPbins,
                          Sample[(C)]._BFPlins,
                          linewidth=3,
                          label=T,
                          color='mc0',
                          linestyle=':'
                          )
-                print(T)
+            print(T)
 
     if Config.semilog == 1 and Config.stand == 0:
         print(str(mymin))

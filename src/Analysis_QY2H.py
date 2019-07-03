@@ -3,6 +3,7 @@
 """MAIN PROGRAM."""
 
 # Python libraries.
+from __future__ import division
 from os.path import join
 
 # Own libraries.
@@ -47,10 +48,10 @@ def main():
     NFiles = Config.Nfiles
 
     # Ref file
-    RFile = Config.Ref
+    RFile = Config.control
 
     # Norm file
-    NFile = Config.B112
+    NFile = Config.MAX
 
     # Create pdf file.
     BilanPdf = CreatePDF(Config)
@@ -82,7 +83,8 @@ def main():
             Conditions(BilanPdf,
                        C,
                        Samples,
-                       GC
+                       GC,
+                       Config
                        )
 
     # Initialize the txt report.
