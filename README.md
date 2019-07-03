@@ -181,9 +181,11 @@ The value `BFP bins` corresponds to the number of points you want to be displaye
 
 You can remove the background of the system by selecting `Remove negative Control`. Unchecking this option is useful to monitor the contribution of the background in your experiment. This information is helpful especially for the weakest interactors.
 
+As the sensitivity of the system may vary from one batch of yeast to an other, you can 'normalize' (to 1) the BFP signal using an `internal reference`. This will allow you to better compare various experiments.
+
 ![Controls](/doc/Select_Controls.jpg)
 
-You need to specify which sample file corresponds to your `negative` control, even if no background subtraction is applied. Typically, the negative control corresponds to a qY2H experiment performed with fluorescent empty BD-Bait and AD-Prey fusion proteins. In our work, this control is called 0-0.fcs.
+You need to specify which sample file corresponds to your `negative` control and `Internal reference`, even if no background subtraction or normalization are applied. Typically, the negative control corresponds to a qY2H experiment performed with fluorescent empty BD-Bait and AD-Prey fusion proteins. In our work, this control is called 0-0.fcs.
 
 The value `Number of cells` corresponds to the maximum number of cells to be loaded from your file before doing the dual gating in the `AD-Prey GFP` and `BD-Bait RFP` channels. **We highly recommend you to analyse at least 1 000 000 events to obtain a reliable affinity ladder.**
 
@@ -205,7 +207,12 @@ Click on `ABORT` to exit the program.
 
 *<span style="color:teal">5 Output files</span>*
 -
-The program generates two files. The `.csv` table contains the `mean BFP` value for each sample file (after subtraction of the negative control, if selected), and the `.pdf` report file encloses the qY2H affinity ladder graph. This two files have a common unique prefix based on the date and time of analysis.
+The program generates three files:
+- A `RESULT.png` image of the graph presented at the end of the analysis
+- A `.csv` table containing the `mean BFP` value for each sample file (after subtraction of the negative control and normalization, if selected)
+- A `.pdf` report file, that encloses the qY2H affinity ladder graph.
+
+The `.csv` and `.pdf` files have a common unique prefix based on the date and time of analysis. Moreover the data processing (*i.e.* background substraction and/or normalisation) is explicitly indicated
 
 *<span style="color:teal">6 Example files</span>*
 -
