@@ -181,7 +181,7 @@ The value `BFP bins` corresponds to the number of points you want to be displaye
 
 You can remove the background of the system by selecting `Remove negative Control`. Unchecking this option is useful to monitor the contribution of the background in your experiment. This information is helpful especially for the weakest interactors.
 
-As the sensitivity of the system may vary from one batch of yeast to an other, you can 'normalize' (to 1) the BFP signal using an `internal reference`. This will allow you to better compare various experiments.
+As the sensitivity of the system may vary from one batch of yeast to an other, you can 'normalize' (to 1) the BFP signal using an `Internal Reference`. This will allow you to better compare various experiments. We recommend to use the strongest interaction as Internal Reference.
 
 ![Controls](/doc/Select_Controls.jpg)
 
@@ -199,7 +199,8 @@ During the analysis the two `Progress Bars` inform you which file (first bar) is
 
 Finally, the program displays the result of the analysis, with the main settings in the title. Here we present the result with the following activated options:
 - **Remove negative Control**
-- **Y axis in log scale**
+- **Normalize with the Internal Standard**
+- **Y axis in linear scale**
 
 ![Results](/doc/Results.jpg)
 
