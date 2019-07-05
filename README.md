@@ -213,8 +213,10 @@ The program generates three files:
 - A `.csv` table containing the `mean BFP` value for each sample file (after subtraction of the negative control and normalization, if selected)
 - A `.pdf` report file, that encloses the qY2H affinity ladder graph.
 
-The `.csv` and `.pdf` files have a common unique prefix based on the date and time of analysis. Moreover the data processing (*i.e.* background substraction and/or normalisation) is explicitly indicated
+The `.csv` and `.pdf` files have a common unique prefix based on the date and time of analysis. Moreover the data processing (*i.e.* background substraction and/or normalisation) is explicitly indicated.
 
 *<span style="color:teal">6 Example files</span>*
 -
-The flow-cytometry files used to perform this example can be downloaded from http://flowrepository.org under accession number **FR-FCM-ZYUL**
+The flow-cytometry files of qY2H experiments can be downloaded from http://flowrepository.org under accession numbers:
+- **FR-FCM-ZYUL** (10 millions cells)
+- **FR-FCM-Z25G** (1 million cells)
