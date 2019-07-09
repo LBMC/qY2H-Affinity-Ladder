@@ -125,12 +125,12 @@ def main():
 
         for C in Config.fileList:
             lt = len(Samples[(C)]._BFP)
-            Samples[(C)]._BFP = Samples[(C)]._BFP / Standard
+            Samples[(C)]._BFP = 100 * Samples[(C)]._BFP / Standard
 
             lt = len(Samples[(C)]._BFPlins)
-            Samples[(C)]._BFPlins = Samples[(C)]._BFPlins / Standardlins
+            Samples[(C)]._BFPlins = 100 * Samples[(C)]._BFPlins / Standardlins
             lt = len(Samples[(C)]._BFPlin)
-            Samples[(C)]._BFPlin = Samples[(C)]._BFPlin / Standardlin
+            Samples[(C)]._BFPlin = 100 * Samples[(C)]._BFPlin / Standardlin
 
     # Draw the graph with all curves.
     Draw_Cumulative(Config.fileList,

@@ -240,15 +240,20 @@ def Draw_Cumulative(Couples_M,
         plt.ylim(ymin=mymin/2)
     else:
         plt.ylim(ymin=0)
+    if Config.stand == 1:
+        plt.ylim(ymax=110)
+        plt.ylabel('Normalized mean (%)',
+                   fontweight='bold',
+                   )
+    else:
+        plt.ylabel('Cumulative mean',
+                   fontweight='bold',
+                   )
 
     plt.xlim(xmin=0)
 
     # Axes label.
     plt.xlabel(BFPchannel,
-               fontweight='bold',
-               )
-
-    plt.ylabel('Cumulative mean',
                fontweight='bold',
                )
 
