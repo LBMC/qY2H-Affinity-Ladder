@@ -6,7 +6,10 @@
 --
 This program permits the automated generation of affinity ladders from `quantitative Yeast Two Hybrid` experiments. The program requires flow cytometry data `.fcs` files (linear scale). It generates a `.csv` table file that contains for each sample the mean reporter level. The actual affinity ladder graph is reported into a `.pdf` file.
 
-For more information, the reader is referred to our article: *bioarchive*
+For more information, the reader is referred to our article:
+
+[**A quantitative tri-fluorescent yeast two-hybrid system: from flow cytometry to in-cellula affinities**](https://www.biorxiv.org/content/10.1101/553636v1)
+
 
 **<span style="color:teal">Authors</span>**
 --
